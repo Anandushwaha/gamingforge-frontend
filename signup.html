@@ -106,7 +106,6 @@
               throw new Error(data.error || data.message || "Signup failed");
             }
 
-            alert("Signup successful! Redirecting to login...");
             window.location.href = "login.html";
           } catch (error) {
             console.error("Signup error:", error);
