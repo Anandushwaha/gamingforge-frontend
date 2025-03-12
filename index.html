@@ -487,129 +487,35 @@
       });
 
       // Simple Authentication System
-      const users = JSON.parse(localStorage.getItem("users")) || [];
-      let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
-
-      // Modal Elements
-      const loginModal = document.getElementById("loginModal");
-      const signupModal = document.getElementById("signupModal");
-      const loginBtn = document.querySelector(".login-btn");
-      const signupBtn = document.querySelector(".signup-btn");
-      const closeBtns = document.querySelectorAll(".close-modal");
-      const loginForm = document.getElementById("loginForm");
-      const signupForm = document.getElementById("signupForm");
-      const loginError = document.getElementById("loginError");
-      const signupError = document.getElementById("signupError");
-
-      // Show/Hide Modals
-      loginBtn.addEventListener("click", () => {
-        loginModal.classList.add("active");
-      });
-
-      signupBtn.addEventListener("click", () => {
-        signupModal.classList.add("active");
-      });
-
-      closeBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          loginModal.classList.remove("active");
-          signupModal.classList.remove("active");
-        });
-      });
-
-      // Handle Login
-      loginForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const email = document.getElementById("loginEmail").value;
-        const password = document.getElementById("loginPassword").value;
-
-        const user = users.find(
-          (u) => u.email === email && u.password === password
-        );
-
-        if (user) {
-          currentUser = user;
-          localStorage.setItem("currentUser", JSON.stringify(currentUser));
-          loginModal.classList.remove("active");
-          loginForm.reset();
-          loginError.textContent = "";
-          updateAuthUI(true);
-        } else {
-          loginError.textContent = "Invalid email or password";
-        }
-      });
-
-      // Handle Signup
-      signupForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const email = document.getElementById("signupEmail").value;
-        const password = document.getElementById("signupPassword").value;
-        const confirmPassword =
-          document.getElementById("confirmPassword").value;
-
-        if (password !== confirmPassword) {
-          signupError.textContent = "Passwords do not match";
-          return;
-        }
-
-        if (users.some((u) => u.email === email)) {
-          signupError.textContent = "Email already exists";
-          return;
-        }
-
-        const newUser = { email, password };
-        users.push(newUser);
-        localStorage.setItem("users", JSON.stringify(users));
-
-        signupModal.classList.remove("active");
-        signupForm.reset();
-        signupError.textContent = "";
-        alert("Registration successful! Please log in.");
-      });
+      let currentUser = JSON.parse(localStorage.getItem("user")) || null;
+      const token = localStorage.getItem("token");
 
       // Update UI based on auth state
       function updateAuthUI(isLoggedIn) {
         const authButtons = document.querySelector(".auth-buttons");
         if (isLoggedIn) {
           authButtons.innerHTML = `
-            <button class="auth-button login-btn" onclick="handleSignOut()">Log Out</button>
+            <button class="auth-button logout-btn" onclick="handleSignOut()">Log Out</button>
           `;
         } else {
           authButtons.innerHTML = `
-            <button class="auth-button login-btn">Log In</button>
-            <button class="auth-button signup-btn">Sign Up</button>
+            <button class="auth-button login-btn" onclick="location.href='login.html'">Log In</button>
+            <button class="auth-button signup-btn" onclick="location.href='signup.html'">Sign Up</button>
           `;
-          attachAuthButtonListeners();
         }
       }
 
       // Handle Sign Out
       window.handleSignOut = () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
         currentUser = null;
-        localStorage.removeItem("currentUser");
         updateAuthUI(false);
+        alert("You have been logged out successfully!");
       };
 
-      // Attach event listeners to new auth buttons
-      function attachAuthButtonListeners() {
-        const newLoginBtn = document.querySelector(".login-btn");
-        const newSignupBtn = document.querySelector(".signup-btn");
-
-        if (newLoginBtn) {
-          newLoginBtn.addEventListener("click", () => {
-            loginModal.classList.add("active");
-          });
-        }
-
-        if (newSignupBtn) {
-          newSignupBtn.addEventListener("click", () => {
-            signupModal.classList.add("active");
-          });
-        }
-      }
-
-      // Check initial auth state
-      updateAuthUI(!!currentUser);
+      // Check initial auth state on page load
+      updateAuthUI(!!currentUser && !!token);
     </script>
   </body>
 </html>
