@@ -45,6 +45,7 @@
       document.addEventListener("DOMContentLoaded", () => {
         const loginForm = document.getElementById("loginForm");
         const errorElement = document.getElementById("loginError");
+        const loadingScreen = document.getElementById("loading-screen");
         const password = document.getElementById("password").value.trim();
         loginForm.addEventListener("submit", async (e) => {
           e.preventDefault();
