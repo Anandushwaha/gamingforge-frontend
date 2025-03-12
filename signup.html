@@ -41,6 +41,10 @@
             <span>Sign Up</span>
             <div class="btn-glow"></div>
           </button>
+          <div id="loading-screen">
+            <div class="hourglass"></div>
+            <p>Loading...</p>
+          </div>
         </form>
 
         <div class="auth-footer">
@@ -54,7 +58,7 @@
       document.addEventListener("DOMContentLoaded", () => {
         const form = document.getElementById("signupForm");
         const errorElement = document.getElementById("signupError");
-
+        const loadingScreen = document.getElementById("loading-screen");
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
 
@@ -77,6 +81,7 @@
           }
 
           try {
+            loadingScreen.style.display = "flex";
             console.log("Attempting signup with:", {
               username,
               email,
@@ -107,6 +112,9 @@
             console.error("Signup error:", error);
             errorElement.textContent =
               error.message || "An error occurred during signup";
+          } finally {
+            // Hide the loader once the request is complete
+            loadingScreen.style.display = "none";
           }
         });
       });
