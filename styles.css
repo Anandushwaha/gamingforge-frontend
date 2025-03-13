@@ -414,7 +414,7 @@ body {
 .hero-character {
   position: absolute;
   bottom: 0;
-  left: 50%;
+  left: 35%;
   transform: translateX(-50%);
   height: 75vh;
   max-height: 800px;
@@ -1652,5 +1652,11 @@ body {
 @media (min-width: 769px) {
   .mobile-menu-btn {
     display: none;
+  }
+}
+@media (max-width: 768px) {
+  .hero-character {
+    height: 50vh;
+    left: 6%;
   }
 }
