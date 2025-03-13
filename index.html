@@ -48,7 +48,8 @@
         </button>
       </div>
 
-      <button class="mobile-menu-btn">☰</button>
+      <!-- Mobile Menu Button -->
+      <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
     </nav>
 
     <section class="hero">
@@ -132,11 +133,14 @@
 
         <div class="event-card">
           <div class="event-image">
-            <img src="assets/images/tournament1.jpg" alt="BGMI Tournament" />
+            <img src="bgmi.png" alt="BGMI Tournament" />
             <div class="event-date">
               <span class="day">25</span>
               <span class="month">MAR</span>
             </div>
+
+            <span class="coming-soon">🔥 Coming Soon</span>
+            <!-- New Tag -->
           </div>
           <div class="event-content">
             <h3 class="event-title">BGMI Pro League</h3>
@@ -154,11 +158,13 @@
 
         <div class="event-card">
           <div class="event-image">
-            <img src="assets/images/tournament2.jpg" alt="Gaming Meetup" />
+            <img src="meetup.jpeg" alt="Gaming Meetup" />
             <div class="event-date">
               <span class="day">28</span>
               <span class="month">MAR</span>
             </div>
+            <span class="coming-soon">🔥 Coming Soon</span>
+            <!-- New Tag -->
           </div>
           <div class="event-content">
             <h3 class="event-title">Gaming Meetup 2024</h3>
@@ -516,6 +522,10 @@
 
       // Check initial auth state on page load
       updateAuthUI(!!currentUser && !!token);
+      function toggleMenu() {
+        const menu = document.querySelector(".nav-items");
+        menu.classList.toggle("active");
+      }
     </script>
   </body>
 </html>
