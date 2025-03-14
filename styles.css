@@ -23,11 +23,9 @@ body {
   align-items: center;
   padding: 1rem 5%;
   z-index: 1000;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 10, 10, 0.95),
-    rgba(10, 10, 10, 0.8)
-  );
+  background: rgba(255, 103, 0, 0.1);
+
+  border: 1px solid rgba(255, 103, 0, 0.2);
   backdrop-filter: blur(10px);
 }
 
@@ -183,7 +181,7 @@ body {
 
 .title {
   font-family: "Orbitron", sans-serif;
-  font-size: 7rem;
+  font-size: 8rem;
   font-weight: 900;
   text-transform: uppercase;
   margin: 0;
@@ -195,7 +193,7 @@ body {
 
 .title-outline {
   font-family: "Orbitron", sans-serif;
-  font-size: 7rem;
+  font-size: 8rem;
   font-weight: 900;
   text-transform: uppercase;
   margin: 0;
@@ -289,21 +287,6 @@ body {
   font-weight: 700;
   color: #ffffff;
   opacity: 0.8;
-}
-
-.website-url {
-  display: flex;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-}
-
-.website-url span {
-  color: #0a0a0a;
-  font-weight: bold;
-  font-size: 0.9rem;
-  margin-left: 0.5rem;
 }
 
 /* Mobile Responsiveness */
@@ -503,7 +486,7 @@ body {
 
 .countdown-item span {
   font-family: "Orbitron", sans-serif;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #ff6700;
   text-shadow: 0 0 10px rgba(255, 103, 0, 0.5);
 }
@@ -915,10 +898,11 @@ body {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.8s ease-in-out;
 }
 
-.gallery-item:hover .gallery-card {
+/* Add a class that JavaScript will toggle */
+.gallery-card.flipped {
   transform: rotateY(180deg);
 }
 
@@ -927,7 +911,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
+  backface-visibility: visible;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -1659,4 +1643,77 @@ body {
     height: 50vh;
     left: 6%;
   }
+}
+@media screen and (max-width: 768px) {
+  .nav-items {
+    display: none; /* Hide nav items by default */
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 10px 0;
+    z-index: 1000;
+  }
+
+  .nav-items.active {
+    display: flex; /* Show when toggled */
+  }
+
+  .nav-items li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-items li a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+
+  /* Auth Buttons - now inside .nav-items */
+  .auth-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .auth-button {
+    width: 80%;
+    padding: 10px;
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+    margin: 5px 0;
+  }
+}
+/* instagram link */
+.instagram-link {
+  color: #e4405f; /* Instagram brand color */
+  font-size: 30px; /* Adjust size */
+  text-decoration: none;
+}
+
+.instagram-link:hover {
+  color: #ff6699; /* Lighter pink on hover */
+}
+
+.linkdin-link {
+  color: #0a66c2; /* Instagram brand color */
+  font-size: 30px; /* Adjust size */
+  text-decoration: none;
+  margin-left: 3px;
+}
+
+.linkdin-link:hover {
+  color: #ff6699; /* Lighter pink on hover */
 }

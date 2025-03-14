@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="resposive.css" />
     <link rel="stylesheet" href="animation.css" />
     <script src="animation.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
   </head>
   <body>
     <nav class="navbar">
@@ -35,22 +39,21 @@
         <li><a href="#about"> About </a></li>
         <li><a href="#gallery"> Gallery </a></li>
         <li><a href="#contact"> Contact Us </a></li>
+        <div class="auth-buttons">
+          <button
+            class="auth-button login-btn"
+            onclick="location.href='login.html'"
+          >
+            Log In
+          </button>
+          <button
+            class="auth-button signup-btn"
+            onclick="location.href='signup.html'"
+          >
+            Sign Up
+          </button>
+        </div>
       </ul>
-
-      <div class="auth-buttons">
-        <button
-          class="auth-button login-btn"
-          onclick="location.href='login.html'"
-        >
-          Log In
-        </button>
-        <button
-          class="auth-button signup-btn"
-          onclick="location.href='signup.html'"
-        >
-          Sign Up
-        </button>
-      </div>
 
       <!-- Mobile Menu Button -->
       <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
@@ -70,17 +73,24 @@
       <div class="footer-content">
         <p class="tagline">CONNECTING GAMERS, BUILDING FUTURES</p>
         <div class="website-url">
-          <svg
-            class="search-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-              fill="currentColor"
-            />
-          </svg>
-          <span>www.GameForgeGC.com</span>
+          <span>
+            <a
+              href="https://www.instagram.com/YOUR_USERNAME"
+              target="_blank"
+              class="instagram-link"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+          </span>
+          <span>
+            <a
+              href="https://www.instagram.com/YOUR_USERNAME"
+              target="_blank"
+              class="linkdin-link"
+            >
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </span>
         </div>
       </div>
     </section>
@@ -281,15 +291,15 @@
       <div class="featured-carousel">
         <div class="carousel-track">
           <div class="carousel-slide">
-            <img src="assets/images/event1.jpg" alt="Gaming Tournament" />
+            <img src="meetup.jpeg" alt="Gaming Tournament" />
             <div class="slide-caption">BGMI Tournament Finals</div>
           </div>
           <div class="carousel-slide">
-            <img src="assets/images/event2.jpg" alt="Esports Workshop" />
+            <img src="meetup.jpeg" alt="Esports Workshop" />
             <div class="slide-caption">Pro Gaming Workshop</div>
           </div>
           <div class="carousel-slide">
-            <img src="assets/images/event3.jpg" alt="Gaming Meetup" />
+            <img src="meetup.jpeg" alt="Gaming Meetup" />
             <div class="slide-caption">Gaming Community Meetup</div>
           </div>
         </div>
@@ -299,7 +309,7 @@
         <div class="gallery-item">
           <div class="gallery-card">
             <div class="card-front">
-              <img src="assets/images/gallery1.jpg" alt="Gaming Event" />
+              <img src="mincraft.jpg" alt="Gaming Event" />
             </div>
             <div class="card-back">
               <h3>Valorant Tournament</h3>
@@ -310,7 +320,7 @@
         <div class="gallery-item">
           <div class="gallery-card">
             <div class="card-front">
-              <img src="assets/images/gallery2.jpg" alt="Gaming Event" />
+              <img src="meetup.jpeg" alt="Gaming Event" />
             </div>
             <div class="card-back">
               <h3>CS2 Championship</h3>
@@ -321,7 +331,7 @@
         <div class="gallery-item">
           <div class="gallery-card">
             <div class="card-front">
-              <img src="assets/images/gallery3.jpg" alt="Gaming Event" />
+              <img src="mincraft.jpg" alt="Gaming Event" />
             </div>
             <div class="card-back">
               <h3>Gaming Workshop</h3>
@@ -530,6 +540,22 @@
         const menu = document.querySelector(".nav-items");
         menu.classList.toggle("active");
       }
+      // card flip
+      const cards = document.querySelectorAll(".gallery-card");
+      let currentIndex = 0;
+
+      function flipCards() {
+        cards.forEach((card, index) => {
+          card.classList.remove("flipped"); // Reset all cards
+        });
+
+        cards[currentIndex].classList.add("flipped"); // Flip only one card
+        currentIndex = (currentIndex + 1) % cards.length; // Move to next card
+
+        setTimeout(flipCards, 3000); // Wait 3 seconds before flipping the next one
+      }
+
+      setTimeout(flipCards, 3000); // Start the flipping loop
     </script>
   </body>
 </html>
