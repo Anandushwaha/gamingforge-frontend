@@ -34,6 +34,7 @@
           </div> -->
         </div>
         <div class="website-name">Game Forge</div>
+        <img src="college.png" alt="" class="colleglogo" />
       </div>
 
       <ul class="nav-items">
@@ -85,7 +86,7 @@
         <div class="website-url">
           <span class="padding">
             <a
-              href="https://www.instagram.com/YOUR_USERNAME"
+              href="https://www.instagram.com/gameforgegc"
               target="_blank"
               class="instagram-link padd"
             >
@@ -93,17 +94,13 @@
             </a>
           </span>
           <span class="padding">
-            <a
-              href="https://www.instagram.com/YOUR_USERNAME"
-              target="_blank"
-              class="linkdin-link padd"
-            >
+            <a href="" target="_blank" class="linkdin-link padd">
               <i class="fab fa-whatsapp padding"></i>
             </a>
           </span>
           <span class="padding">
             <a
-              href="https://www.instagram.com/YOUR_USERNAME"
+              href="https://discord.gg/wKMGsrxz"
               target="_blank"
               class="discord-link padd"
             >
@@ -160,7 +157,7 @@
               <span class="event-time">🕒 4:00 PM IST</span>
               <span class="event-location">🎮 Online</span>
             </div>
-            <a href="#" class="event-button">Register Now</a>
+            <a href="register.html" class="event-button">Register Now</a>
           </div>
         </div>
 
@@ -200,7 +197,7 @@
             <!-- New Tag -->
           </div>
           <div class="event-content">
-            <h3 class="event-title">Gaming Meetup 2024</h3>
+            <h3 class="event-title">Gaming Meetup 2025</h3>
             <p class="event-description">
               Connect with fellow gamers, share strategies, and participate in
               mini-tournaments.
@@ -419,11 +416,15 @@
         </form>
       </div>
     </section>
+    <!-- event form -->
+    <!-- Event Registration Form (Initially Hidden) -->
 
     <script>
       // Countdown Timer
+      let countdownInterval; // Define it first
+
       function updateCountdown() {
-        const eventDate = new Date("March 20, 2025 16:00:00").getTime(); // Set your event date
+        const eventDate = new Date("March 22, 2025 16:00:00").getTime(); // Set your event date
         const now = new Date().getTime();
         const distance = eventDate - now;
 
@@ -460,9 +461,9 @@
         ).padStart(2, "0");
       }
 
-      // Update the countdown every second
-      const countdownInterval = setInterval(updateCountdown, 1000);
-      updateCountdown();
+      // Start the countdown
+      countdownInterval = setInterval(updateCountdown, 1000);
+      updateCountdown(); // Call it immediately to avoid a 1-second delay
 
       // Carousel Auto-scroll
       const carouselTrack = document.querySelector(".carousel-track");
@@ -575,6 +576,20 @@
       }
 
       setTimeout(flipCards, 3000); // Start the flipping loop
+      // javascript to open the modal for event
+      document
+        .getElementById("openEventForm")
+        .addEventListener("click", (e) => {
+          e.preventDefault(); // Prevent default link behavior
+          document
+            .getElementById("eventFormContainer")
+            .classList.remove("hidden");
+        });
+      document
+        .getElementById("closeEventForm")
+        .addEventListener("click", () => {
+          document.getElementById("eventFormContainer").classList.add("hidden");
+        });
     </script>
   </body>
 </html>

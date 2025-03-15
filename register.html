@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valorant Tournament Registration</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .modal {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .modal-header {
+        background-color: #ff4655;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px 8px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-header h2 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .close-button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .modal-body {
+        padding: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      .error {
+        color: #ff4655;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+      }
+
+      input.invalid,
+      select.invalid {
+        border-color: #ff4655;
+      }
+
+      .team-members-container {
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 15px;
+        background-color: #f9f9f9;
+      }
+
+      .team-member-input {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .member-name-input {
+        flex-grow: 2;
+      }
+
+      .member-class-input {
+        flex-grow: 1;
+      }
+
+      .team-members-list {
+        margin-top: 15px;
+      }
+
+      .team-member-row {
+        display: flex;
+        padding: 8px 10px;
+        background-color: white;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        margin-bottom: 5px;
+        align-items: center;
+      }
+
+      .member-number {
+        width: 24px;
+        height: 24px;
+        background-color: #ff4655;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        margin-right: 10px;
+        flex-shrink: 0;
+      }
+
+      .member-info {
+        flex-grow: 1;
+      }
+
+      .member-name {
+        font-weight: bold;
+      }
+
+      .member-class {
+        font-size: 12px;
+        color: #666;
+      }
+
+      .remove-button {
+        background: none;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 0 5px;
+      }
+
+      .remove-button:hover {
+        color: #ff4655;
+      }
+
+      .add-button {
+        background-color: #0f9d58;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .add-button:hover {
+        background-color: #0b8043;
+      }
+
+      .add-button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+
+      .add-button-icon {
+        margin-right: 5px;
+        font-weight: bold;
+      }
+
+      .team-count {
+        color: #666;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+
+      .team-count span {
+        font-weight: bold;
+        color: #ff4655;
+      }
+
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        font-weight: normal;
+      }
+
+      input[type="checkbox"] {
+        width: auto;
+        margin-right: 10px;
+      }
+
+      .submit-button {
+        background-color: #ff4655;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        float: right;
+      }
+
+      .submit-button:hover {
+        background-color: #e03e4c;
+      }
+
+      .success-message {
+        text-align: center;
+        padding: 30px;
+        display: none;
+      }
+
+      .success-message h3 {
+        color: #4caf50;
+        margin-bottom: 20px;
+      }
+
+      .form-container {
+        display: block;
+      }
+
+      .section-title {
+        border-bottom: 2px solid #ff4655;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Valorant Tournament Registration</h2>
+        <button class="close-button" id="close-button">&times;</button>
+      </div>
+
+      <div class="form-container" id="formContainer">
+        <div class="modal-body">
+          <form id="registrationForm">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your full name"
+              />
+              <div class="error" id="nameError">Name is required</div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Gmail (Email) *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="your.email@gmail.com"
+              />
+              <div class="error" id="emailError">Valid email is required</div>
+            </div>
+
+            <div class="form-group">
+              <label for="mobile">Mobile Number *</label>
+              <input
+                type="tel"
+                id="mobile"
+                name="mobile"
+                placeholder="10-digit mobile number"
+              />
+              <div class="error" id="mobileError">
+                Valid 10-digit mobile number is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="teamName">Team Name *</label>
+              <input
+                type="text"
+                id="teamName"
+                name="teamName"
+                placeholder="Your team name"
+              />
+              <div class="error" id="teamNameError">Team name is required</div>
+            </div>
+
+            <div class="form-group">
+              <h3 class="section-title">Team Members (5)</h3>
+              <div class="team-members-container">
+                <div class="team-member-input">
+                  <div class="member-name-input">
+                    <input
+                      type="text"
+                      id="newMemberName"
+                      placeholder="Member name"
+                    />
+                  </div>
+                  <div class="member-class-input">
+                    <select id="newMemberClass">
+                      <option value="">Class</option>
+                      <option value="11th">11th</option>
+                      <option value="12th">12th</option>
+                      <option value="FY">FY</option>
+                      <option value="SY">SY</option>
+                      <option value="TY">TY</option>
+                      <option value="Final">Final</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button type="button" id="addMemberBtn" class="add-button">
+                  <span class="add-button-icon">+</span> Add Member
+                </button>
+
+                <div class="team-members-list" id="teamMembersList"></div>
+
+                <div class="team-count">
+                  Team Members: <span id="memberCount">0</span>/5
+                </div>
+              </div>
+              <div class="error" id="teamMembersError">
+                You must add 5 team members
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="collegeName">College Name *</label>
+              <input
+                type="text"
+                id="collegeName"
+                name="collegeName"
+                placeholder="Your college name"
+              />
+              <div class="error" id="collegeNameError">
+                College name is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  name="playedValorant"
+                  id="playedValorant"
+                />
+                Have you played Valorant before?
+              </label>
+            </div>
+
+            <button type="submit" class="submit-button">Register</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="success-message" id="successMessage">
+        <h3>Registration Successful!</h3>
+        <p>Thank you for registering your team for the Valorant tournament.</p>
+        <p>
+          <strong>Team: <span id="registeredTeamName"></span></strong>
+        </p>
+        <p>We'll contact you soon with more details.</p>
+        <button class="submit-button" id="closeButton">Close</button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const registrationForm = document.getElementById("registrationForm");
+        const formContainer = document.getElementById("formContainer");
+        const successMessage = document.getElementById("successMessage");
+        const closeButton = document.getElementById("closeButton");
+        const registeredTeamName =
+          document.getElementById("registeredTeamName");
+        const closeModalButton = document.querySelector(".close-button");
+
+        // Team members management
+        const addMemberBtn = document.getElementById("addMemberBtn");
+        const newMemberName = document.getElementById("newMemberName");
+        const newMemberClass = document.getElementById("newMemberClass");
+        const teamMembersList = document.getElementById("teamMembersList");
+        const memberCount = document.getElementById("memberCount");
+
+        // Array to store team members
+        let teamMembers = [];
+
+        // Add team member
+        addMemberBtn.addEventListener("click", function () {
+          const name = newMemberName.value.trim();
+          const memberClass = newMemberClass.value;
+
+          if (name && memberClass) {
+            if (teamMembers.length < 5) {
+              // Add to array
+              teamMembers.push({
+                name: name,
+                class: memberClass,
+              });
+
+              // Update display
+              updateTeamMembersList();
+
+              // Clear input fields
+              newMemberName.value = "";
+              newMemberClass.value = "";
+
+              // Hide error if visible
+              document.getElementById("teamMembersError").style.display =
+                "none";
+            }
+
+            // Update button state
+            if (teamMembers.length >= 5) {
+              addMemberBtn.disabled = true;
+            }
+          } else {
+            // Highlight empty fields
+            if (!name) newMemberName.classList.add("invalid");
+            if (!memberClass) newMemberClass.classList.add("invalid");
+
+            // Remove invalid class when user types
+            newMemberName.addEventListener("input", function () {
+              this.classList.remove("invalid");
+            });
+
+            newMemberClass.addEventListener("change", function () {
+              this.classList.remove("invalid");
+            });
+          }
+        });
+
+        // Update team members list
+        function updateTeamMembersList() {
+          // Clear current list
+          teamMembersList.innerHTML = "";
+
+          // Add each member to the list
+          teamMembers.forEach((member, index) => {
+            const memberRow = document.createElement("div");
+            memberRow.className = "team-member-row";
+
+            memberRow.innerHTML = `
+                        <div class="member-number">${index + 1}</div>
+                        <div class="member-info">
+                            <div class="member-name">${member.name}</div>
+                            <div class="member-class">Class: ${
+                              member.class
+                            }</div>
+                        </div>
+                        <button type="button" class="remove-button" data-index="${index}">×</button>
+                    `;
+
+            teamMembersList.appendChild(memberRow);
+          });
+
+          // Update count
+          memberCount.textContent = teamMembers.length;
+
+          // Add event listeners to remove buttons
+          document.querySelectorAll(".remove-button").forEach((button) => {
+            button.addEventListener("click", function () {
+              const index = parseInt(this.getAttribute("data-index"));
+              teamMembers.splice(index, 1);
+              updateTeamMembersList();
+
+              // Enable add button if previously disabled
+              if (addMemberBtn.disabled) {
+                addMemberBtn.disabled = false;
+              }
+            });
+          });
+        }
+
+        // Validate form on submit
+        registrationForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          let isValid = true;
+
+          // Validate name
+          const name = document.getElementById("name");
+          if (!name.value.trim()) {
+            showError(name, "nameError");
+            isValid = false;
+          } else {
+            hideError(name, "nameError");
+          }
+
+          // Validate email
+          const email = document.getElementById("email");
+          const emailPattern = /\S+@\S+\.\S+/;
+          if (!email.value.trim() || !emailPattern.test(email.value)) {
+            showError(email, "emailError");
+            isValid = false;
+          } else {
+            hideError(email, "emailError");
+          }
+
+          // Validate mobile
+          const mobile = document.getElementById("mobile");
+          if (
+            !mobile.value.trim() ||
+            mobile.value.replace(/\D/g, "").length !== 10
+          ) {
+            showError(mobile, "mobileError");
+            isValid = false;
+          } else {
+            hideError(mobile, "mobileError");
+          }
+
+          // Validate team name
+          const teamName = document.getElementById("teamName");
+          if (!teamName.value.trim()) {
+            showError(teamName, "teamNameError");
+            isValid = false;
+          } else {
+            hideError(teamName, "teamNameError");
+          }
+
+          // Validate team members (must have exactly 5)
+          if (teamMembers.length !== 5) {
+            document.getElementById("teamMembersError").style.display = "block";
+            isValid = false;
+          } else {
+            document.getElementById("teamMembersError").style.display = "none";
+          }
+
+          // Validate college name
+          const collegeName = document.getElementById("collegeName");
+          if (!collegeName.value.trim()) {
+            showError(collegeName, "collegeNameError");
+            isValid = false;
+          } else {
+            hideError(collegeName, "collegeNameError");
+          }
+
+          // Validate player class
+          const playerClass = document.getElementById("playerClass");
+          if (!playerClass.value) {
+            showError(playerClass, "playerClassError");
+            isValid = false;
+          } else {
+            hideError(playerClass, "playerClassError");
+          }
+
+          // If form is valid, show success message
+          if (isValid) {
+            registeredTeamName.textContent = teamName.value;
+            formContainer.style.display = "none";
+            successMessage.style.display = "block";
+
+            // Log form data (you would typically send this to a server)
+            console.log({
+              name: name.value,
+              email: email.value,
+              mobile: mobile.value,
+              teamName: teamName.value,
+              teamMembers: teamMembers,
+              collegeName: collegeName.value,
+              playerClass: playerClass.value,
+              playedValorant: document.getElementById("playedValorant").checked,
+            });
+          }
+        });
+
+        // Close button on success message
+        closeButton.addEventListener("click", function () {
+          registrationForm.reset();
+          teamMembers = [];
+          updateTeamMembersList();
+          addMemberBtn.disabled = false;
+          successMessage.style.display = "none";
+          formContainer.style.display = "block";
+        });
+
+        // Close modal button
+        closeModalButton.addEventListener("click", function () {
+          window.location.href = "index.html"; // Replace with your actual page URL
+        });
+
+        // Helper functions for showing/hiding errors
+        function showError(input, errorId) {
+          input.classList.add("invalid");
+          document.getElementById(errorId).style.display = "block";
+        }
+
+        function hideError(input, errorId) {
+          input.classList.remove("invalid");
+          document.getElementById(errorId).style.display = "none";
+        }
+      });
+      //   form submit to backend
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const teamMembers = [];
+          document
+            .querySelectorAll(".team-member-input")
+            .forEach((memberInput) => {
+              const name = memberInput.querySelector(
+                ".member-name-input input"
+              ).value;
+              const playerClass = memberInput.querySelector(
+                ".member-class-input select"
+              ).value;
+              if (name && playerClass) {
+                teamMembers.push({ name, class: playerClass });
+              }
+            });
+
+          // Check if exactly 5 members are added
+          if (teamMembers.length !== 5) {
+            document.getElementById("teamMembersError").style.display = "block";
+            return;
+          }
+
+          // Collect form data
+          const formData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            mobile: document.getElementById("mobile").value,
+            teamName: document.getElementById("teamName").value,
+            teamMembers: teamMembers,
+            collegeName: document.getElementById("collegeName").value,
+            playerClass: document.getElementById("playerClass").value,
+            playedValorant: document.getElementById("playedValorant").checked,
+          };
+
+          try {
+            const response = await fetch(
+              "https://gamingforge.onrender.com/api/event/register",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+              }
+            );
+
+            const result = await response.json();
+
+            if (response.ok) {
+              document.getElementById("successMessage").style.display = "block";
+              document.getElementById("registeredTeamName").innerText =
+                formData.teamName;
+            } else {
+              alert(result.error || "Registration failed. Please try again.");
+            }
+          } catch (error) {
+            console.error("Error submitting form:", error);
+          }
+        });
+    </script>
+  </body>
+</html>
