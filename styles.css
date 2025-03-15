@@ -358,11 +358,12 @@ body {
 
 @media (max-width: 768px) {
   .title {
-    font-size: 3rem;
+    margin-top: -20px;
+    font-size: 4rem;
   }
 
   .title-outline {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 
   .hero-character {
@@ -379,6 +380,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    z-index: 20;
   }
 }
 
@@ -1632,7 +1634,6 @@ body {
 @media (max-width: 768px) {
   /* Align navbar elements */
   .navbar {
-    padding: 1rem 8%;
     flex-wrap: wrap;
   }
 
