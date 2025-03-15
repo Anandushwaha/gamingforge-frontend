@@ -580,6 +580,7 @@
                 registeredTeamName.textContent = teamName.value;
                 formContainer.style.display = "none";
                 successMessage.style.display = "block";
+
                 console.log("Registration successful:", result);
               } else {
                 alert(result.error || "Registration failed. Please try again.");
@@ -596,12 +597,13 @@
 
         // Close button on success message
         closeButton.addEventListener("click", function () {
-          registrationForm.reset();
-          teamMembers = [];
-          updateTeamMembersList();
-          addMemberBtn.disabled = false;
-          successMessage.style.display = "none";
-          formContainer.style.display = "block";
+          //   registrationForm.reset();
+          //   teamMembers = [];
+          //   updateTeamMembersList();
+          //   addMemberBtn.disabled = false;
+          //   successMessage.style.display = "none";
+          //   formContainer.style.display = "block";
+          window.location.href = "index.html";
         });
 
         // Close modal button
