@@ -14,12 +14,32 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
+    <style>
+      .event-button.disabled {
+        background: gray;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .event-button-detail {
+        display: inline-block;
+
+        color: #ff6700;
+        text-decoration: none;
+
+        transition: all 0.3s ease;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-left: 2rem;
+        bottom: 50%;
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar">
       <div class="logo-section">
         <div class="logo-container">
-          <img src="800x800.png" alt="" class="logo" />
           <!-- <div class="hexagon">
             <svg
               class="controller-icon"
@@ -157,7 +177,12 @@
               <span class="event-time">🕒 4:00 PM IST</span>
               <span class="event-location">🎮 Online</span>
             </div>
-            <a href="register.html" class="event-button">Register Now</a>
+            <span><a href="#" class="event-button disabled">Completed</a></span>
+            <a
+              href="event-details.html"
+              class="event-button-detail view-details"
+              >View Details</a
+            >
           </div>
         </div>
 
@@ -165,8 +190,8 @@
           <div class="event-image">
             <img src="bgmi.png" alt="BGMI Tournament" />
             <div class="event-date">
-              <span class="day">25</span>
-              <span class="month">MAR</span>
+              <span class="day">00</span>
+              <span class="month">---</span>
             </div>
 
             <span class="coming-soon">🔥 Coming Soon</span>
@@ -190,8 +215,8 @@
           <div class="event-image">
             <img src="meetup.jpeg" alt="Gaming Meetup" />
             <div class="event-date">
-              <span class="day">28</span>
-              <span class="month">MAR</span>
+              <span class="day">00</span>
+              <span class="month">---</span>
             </div>
             <span class="coming-soon">🔥 Coming Soon</span>
             <!-- New Tag -->
@@ -307,11 +332,11 @@
       <div class="featured-carousel">
         <div class="carousel-track">
           <div class="carousel-slide">
-            <img src="meetup.jpeg" alt="Gaming Tournament" />
-            <div class="slide-caption">BGMI Tournament Finals</div>
+            <img src="valo final .jpg" alt="Gaming Tournament" />
+            <div class="slide-caption">Valorent Tournament Finals</div>
           </div>
           <div class="carousel-slide">
-            <img src="meetup.jpeg" alt="Esports Workshop" />
+            <img src="valo final .jpg" alt="Esports Workshop" />
             <div class="slide-caption">Pro Gaming Workshop</div>
           </div>
           <div class="carousel-slide">
@@ -421,49 +446,49 @@
 
     <script>
       // Countdown Timer
-      let countdownInterval; // Define it first
+      // let countdownInterval; // Define it first
 
-      function updateCountdown() {
-        const eventDate = new Date("March 22, 2025 16:00:00").getTime(); // Set your event date
-        const now = new Date().getTime();
-        const distance = eventDate - now;
+      // function updateCountdown() {
+      //   const eventDate = new Date("March 22, 2025 16:00:00").getTime(); // Set your event date
+      //   const now = new Date().getTime();
+      //   const distance = eventDate - now;
 
-        if (distance <= 0) {
-          // If event has passed, set all values to 00 and stop the countdown
-          document.getElementById("days").textContent = "00";
-          document.getElementById("hours").textContent = "00";
-          document.getElementById("minutes").textContent = "00";
-          document.getElementById("seconds").textContent = "00";
-          clearInterval(countdownInterval); // Stop the interval
-          return;
-        }
+      //   if (distance <= 0) {
+      //     // If event has passed, set all values to 00 and stop the countdown
+      //     document.getElementById("days").textContent = "00";
+      //     document.getElementById("hours").textContent = "00";
+      //     document.getElementById("minutes").textContent = "00";
+      //     document.getElementById("seconds").textContent = "00";
+      //     clearInterval(countdownInterval); // Stop the interval
+      //     return;
+      //   }
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      //   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      //   const hours = Math.floor(
+      //     (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      //   );
+      //   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      //   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById("days").textContent = String(days).padStart(
-          2,
-          "0"
-        );
-        document.getElementById("hours").textContent = String(hours).padStart(
-          2,
-          "0"
-        );
-        document.getElementById("minutes").textContent = String(
-          minutes
-        ).padStart(2, "0");
-        document.getElementById("seconds").textContent = String(
-          seconds
-        ).padStart(2, "0");
-      }
+      //   document.getElementById("days").textContent = String(days).padStart(
+      //     2,
+      //     "0"
+      //   );
+      //   document.getElementById("hours").textContent = String(hours).padStart(
+      //     2,
+      //     "0"
+      //   );
+      //   document.getElementById("minutes").textContent = String(
+      //     minutes
+      //   ).padStart(2, "0");
+      //   document.getElementById("seconds").textContent = String(
+      //     seconds
+      //   ).padStart(2, "0");
+      // }
 
       // Start the countdown
-      countdownInterval = setInterval(updateCountdown, 1000);
-      updateCountdown(); // Call it immediately to avoid a 1-second delay
+      // countdownInterval = setInterval(updateCountdown, 1000);
+      // Call it immediately to avoid a 1-second delay updateCountdown();
 
       // Carousel Auto-scroll
       const carouselTrack = document.querySelector(".carousel-track");
